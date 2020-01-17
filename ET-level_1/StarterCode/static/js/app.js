@@ -2,49 +2,46 @@
 var tableData = data;
 console.log(tableData);
 // YOUR CODE HERE!
-// Select the filter button
-var filterButton= d3.select('filter-btn');
 
-//  Select the input value
-var textBox= d3.select('form-control');
-
-// select table
+// get handle to the table body
 var tbody= d3.select('tbody');
 
-//  function to handle of click button
+// Create the table of data
+
+tableData.forEach((record) => {
+   var row=tbody.append(('tr'));
+   Object.values(record).forEach(value => row.append('td').text(value));
+});
+
+d3.select('table').attr('class','table table-striped');
 
 
-function handleBtnClick(){
-   var inputValue=textBox.property('value');
-   var filterData= tableData.filter(date => date.datetime === inputValue);
-   console.log(filterData);
-   var row=tbody.append("tr")
-   Object.enteries(filterData).forEach( value => cell.append("td").text(value));
-   
+  //  function to handle of click button
 
+var filterButton= d3.select('.btn');
+
+filterButton.on("click", function (){
+   var textBox= d3.select('.form-control');
+   console.log('this is text box', textBox);
+
+   // attr of inpeut 
+   var inputValue=textBox.attr('value');
+   console.log('Input Value',inputValue );
   
-}
+   // filter the table based on the input values
 
-filterButton.on('click',handleBtnClick );
+   var filterDate= inputValue.filter(dateRecord => dateRecord.datetime === inputValue);
+   console.log(filterDate);
 
-// table body
+   var filterState= inputValue.filter(stateRecord => stateRecord.State === inputValue);
 
-// filterData.forEach({
-
-   // tbody.append('tr');
-   // Object.enteries(filterData).forEach( value => row.append('th').text(value));
-
-
-// });
-
+   var filterCountry= inputValue.filter(countryRecord => countryRecord.Country === inputValue);
+   var filterShape= inputValue.filter(shapeRecord => shapeRecord.Shape === inputValue);
+   var filterDuration= inputValue.filter(durationRecord => durationRecord.Duration === inputValue);
    
-// d3.select('tr>table-head').Date(inputValue);
-//    d3.select('tr>table-head').City(inputValue);
-//    d3.select('tr>table-head').State(inputValue);
-//    d3.select('tr>table-head').Country(inputValue);
-//    d3.select('tr>table-head').Shape(inputValue);
-//    d3.select('tr>table-head').Duration(inputValue);
-//    d3.select('tr>table-head').Comments(inputValue); 
+});
+
+
 
 
 
