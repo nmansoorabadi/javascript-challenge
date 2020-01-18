@@ -8,10 +8,10 @@ var tbody= d3.select('tbody');
 
 // Create the table of data
 
-tableData.forEach((record) => {
-   var row=tbody.append(('tr'));
-   Object.values(record).forEach(value => row.append('td').text(value));
-});
+   tableData.forEach((record) => {
+      var row=tbody.append(('tr'));
+      Object.values(record).forEach(value => row.append('td').text(value));
+   });
 
 d3.select('table').attr('class','table table-striped');
 
@@ -20,30 +20,45 @@ d3.select('table').attr('class','table table-striped');
 
 var filterButton= d3.select('.btn');
 
-filterButton.on("click", function (){
-   var textBox= d3.select('.form-control');
-   console.log('this is text box', textBox);
+// Click Handler
 
-   // attr of inpeut 
-   var inputValue=textBox.attr('value');
-   console.log('Input Value',inputValue );
-  
-   // filter the table based on the input values
+function clickHandler(){
 
-   var filterDate= inputValue.filter(dateRecord => dateRecord.datetime === inputValue);
-   console.log(filterDate);
+   // d3.event.preventDefault();
+   filterButton.on("click", function (){
+      var textBox= d3.select("#datetime");
+      console.log('this is text box', textBox);
 
-   var filterState= inputValue.filter(stateRecord => stateRecord.State === inputValue);
+      // attr of inpeut 
+      var inputValue=textBox.property('value');
+      // var inputValue=textBox.attr('value','');
 
-   var filterCountry= inputValue.filter(countryRecord => countryRecord.Country === inputValue);
-   var filterShape= inputValue.filter(shapeRecord => shapeRecord.Shape === inputValue);
-   var filterDuration= inputValue.filter(durationRecord => durationRecord.Duration === inputValue);
+      // var inputValue=d3.event.target.value;
+      console.log('Input Value',inputValue );
    
-});
+      // filter the table based on the input values
+      
+
+      var filterDate= tableData.filter(dateRecord => dateRecord.datetime === inputValue);
+         return filterDate;
+      
+      // console.log(filterDate);
 
 
+     });
 
+      // tbody.html("");
+      // var filterCity= tableData.filter(stateRecord => stateRecord.city === inputValue);
+      // var filterState= tableData.filter(stateRecord => stateRecord.State === inputValue);
+      // var filterCountry= tableData.filter(countryRecord => countryRecord.country === inputValue);
+      // var filterShape= tableData.filter(shapeRecord => shapeRecord.shape === inputValue);
+      // var filterDuration= tableData.filter(durationRecord => durationRecord.durationMinutes === inputValue);
+      
+   // });
 
+   // d3.event.preventDefault();
+ 
+}
 
-
+filterButton.on("click",clickHandler);
 
